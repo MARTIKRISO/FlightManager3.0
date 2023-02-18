@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+</head>
+<body>
+    <div class="container" style="font-family: arial, sans-serif">
+        <ul class="nav bg-info">
+          <li class="nav-item">
+            <a class="nav-link link-light" href="/">HOME</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link link-light" href="/book">Book Flight</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link link-light" href="/book">See Flights</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link link-light" href="/login">Log In</a>
+          </li>
+        </ul>
+
+        {% block content %}
+        {% endblock content %}
+    </div>
+</body>
+</html>
