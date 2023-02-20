@@ -1,0 +1,50 @@
+{% extends 'master.html' %}
+
+{% block title %}
+See flights
+{% endblock title %}
+
+{% block content %}
+<table id="sortTable" class="display table table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>Flight ID</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Takeoff Time</th>
+            <th>Landing Time</th>
+            <th>Plane Type</th>
+            <th>Plane ID</th>
+            <th>Pilot Name</th>
+            <th>Normal Ticket Count</th>
+            <th>Normal Ticket Price</th>
+            <th>Business Ticket Count</th>
+            <th>Business Ticket Price</th>
+            <th>Click to Book</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in data %}
+        <tr>
+            <td>{{ item.pk }}</td>
+            <td>{{ item.from_location }}</td>
+            <td>{{ item.to_location }}</td>
+            <td>{{ item.takeoff_time }}</td>
+            <td>{{ item.landing_time }}</td>
+            <td>{{ item.plane_type }}</td>
+            <td>{{ item.plane_id }}</td>
+            <td>{{ item.pilot_name }}</td>
+            <td>{{ item.normal_ticket_count }}</td>
+            <td>{{ item.normal_ticket_price }} BGN</td>
+            <td>{{ item.business_ticket_count }}</td>
+            <td>{{ item.business_ticket_price }} BGN</td>
+            <td><a href="/">Book Here</a>
+            
+        </tr>
+        {% endfor %}
+    </tfoot>
+</table>
+
+
+{% include 'footer.html' %}
+{% endblock content %}

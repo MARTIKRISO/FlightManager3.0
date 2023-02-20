@@ -18,8 +18,8 @@ class User(models.Model):
 class Flight(models.Model):
     from_location = models.CharField(max_length=20)
     to_location = models.CharField(max_length=20)
-    takeoff_time = models.TimeField()
-    landing_time = models.TimeField()
+    takeoff_time = models.DateTimeField()
+    landing_time = models.DateTimeField()
     plane_type = models.CharField(max_length=20)
     plane_id = models.CharField(max_length=20)
     pilot_name = models.CharField(max_length=40)

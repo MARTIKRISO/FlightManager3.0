@@ -17,13 +17,10 @@
             <a class="nav-link link-light" href="/">HOME</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link link-light" href="/book">Book Flight</a>
+            <a class="nav-link link-light" href="{% url 'flight:seeflights' %}">See All Flights</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link link-light" href="/book">See Flights</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link link-light" href="/login">Log In</a>
+            <a class="nav-link link-light" href="{% url 'flight:login' %}">Log In</a>
           </li>
         </ul>
 
