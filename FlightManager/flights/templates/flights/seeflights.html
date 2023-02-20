@@ -38,7 +38,7 @@ See flights
             <td>{{ item.normal_ticket_price }} BGN</td>
             <td>{{ item.business_ticket_count }}</td>
             <td>{{ item.business_ticket_price }} BGN</td>
-            <td><a href="/">Book Here</a>
+            <td><a href="/book/{{ item.pk }}">Book Here</a>
             
         </tr>
         {% endfor %}
