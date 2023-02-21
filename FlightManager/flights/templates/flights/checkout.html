@@ -1,0 +1,72 @@
+{% extends 'master.html' %}
+
+{% block title %}
+Checkout
+{% endblock title %}
+
+{% block content %}
+{% csrf_token %}
+{% block scripts %}
+<script>
+    var flight_data = {spas:"mirishe"};
+    let total_cost = 0;
+
+    $(document).ready(function(event){
+       $.ajaxSetup({async: false});
+
+
+        order = JSON.parse(Cookies.get("order"));
+        let flight_id = order[0].flight;
+        
+        $.get(`{% url 'flight:flightdata' %}?pk=${flight_id}`, function(data){
+            let parsedData = JSON.parse(data);
+            flight_data = parsedData[0].fields;
+        });
+        console.log(flight_data);
+        
+        for([index, reservation] of order.entries()){
+            price = reservation.ticket_type === "normal" ? flight_data.normal_ticket_price : flight_data.business_ticket_price 
+            string = `<tr><td>${index}</td><td>${reservation.f_name}</td><td>${reservation.m_name}</td><td>${reservation.l_name}</td><td>${reservation.EGN}</td><td>${flight_data.takeoff_time.slice(0, 10)}</td><td>${reservation.ticket_type}</td><td>${price}</td></tr>`
+            $("#t_body").append(string);
+            total_cost += Number(price);
+        }
+        
+        let total_cost_row = `<tr><td colspan="7" align="right"><span class="label pull-right" style="padding-left:2em; padding-right:4em;">Total price:</span></td><td>${total_cost}</td></tr>`
+        $("#t_body").append(total_cost_row);
+        let pay_button_row = `<tr><td colspan="8" align="right"><button id="pay_btn" class="btn btn-primary pull-right" style="padding-left:2em; padding-right:2em;">Pay</button></td></tr>`;
+        $("#t_body").append(pay_button_row);
+        
+        $("#pay_btn").on('click', function (event){
+            $.post(`{% url 'flight:reserve' %}`, data={objects: order}, function() {})
+            .done(function() {
+                alert("Success")
+            })
+        });
+    });
+</script>
+{% endblock scripts %}
+<h1>Order Summary</h1>
+<div id="orders">
+    <table id="orders_table" class="display table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>Reservation Number</th>
+                <th>First Name</th>
+                <th>Middle Name</th>
+                <th>Last Name</th>
+                <th>EGN</th>
+                <th>Date</th>
+                <th>Ticket Type</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+    <tbody id="t_body">
+        <!--JS fills here-->
+    </tbody>
+    </table>
+</div>
+
+
+
+{% include 'footer.html' %}
+{% endblock content %}

@@ -8,4 +8,8 @@ urlpatterns = [
     path("book/<int:pk>", views.book, name="book"),
     path("see_flights", views.seeflights, name="seeflights"),
     path("login", views.login, name="login"),
+    path("checkout", views.checkout, name="checkout"),
+    path("flightdata", views.flightdata, name="flightdata"),
+    path("reserve", views.reserve, name="reserve"),
+
 ]

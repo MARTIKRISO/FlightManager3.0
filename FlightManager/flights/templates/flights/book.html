@@ -6,11 +6,14 @@ Book flight {{ data.pk }}
 {% block content %}
 
 {% block scripts %}
+
 <script>
-    person_num = 1;
+    let person_num = 1;
+    let regs = [];
+    
     $("#title").text(`Person ${person_num}`);
     $(document).ready(function(){
-        $("#add_person_span").hide();
+        $("#end_form").toggle();
         $("#reg_form").submit(function(event){
 
             event.preventDefault();
@@ -24,73 +27,81 @@ Book flight {{ data.pk }}
                 email: $("#email_address_field").val(),
                 phone_number: $("#phone_number_field").val(),
                 nationality: $("#nationality_field").val().toUpperCase(),
-                ticket_type: $("#f_name_field").val(),
+                ticket_type: $("#ticket_type_field").val(),
                 flight: {{ data.pk }}
             }
-            
-            console.table(reg);
-            $("#reg_form").toggle();
-            $("#add_person_span").toggle();
-           //$("#reg_form")[0].reset();
-           person_num += 1
-           $("#title").text(`Person ${person_num}`);
 
+            regs.push(reg);
+            //console.table(reg);
+            $("#reg_form").toggle();
+            $("#end_form").toggle();
+           //$("#reg_form")[0].reset();
+            $("#persons_list").append(`Person ${person_num} - ${reg.f_name} ${reg.l_name} - ${reg.EGN}<br>`);
+            person_num += 1;
         });
         $("#add_person_btn").on("click", function(event){
-            $("#add_person_span").toggle();
-            $("#reg_form").toggle()
+            $("#end_form").toggle();
+            $("#reg_form").toggle();
+        });
+        $("#checkout_btn").on("click", function(event){
+            stringified =  JSON.stringify(regs);
+            Cookies.set("order", stringified);
+            window.location.replace("{% url 'flight:checkout' %}");          
         });
     });
 
     //TODO: Sum up price and add payment to total order, save reservations to model
 </script>
 {% endblock scripts %}
+<div id="persons_list">
+</div>
 
-<span id="add_person_span"><h1 >Add another person?</h1><button id="add_person_btn" class="btn btn-primary">Add</button></span><br>
+<div id="end_form"><h1 >Add another person?</h1><button id="add_person_btn" class="btn btn-primary">Add</button><br>
+<h1>Continue to checkout?</h1><button id="checkout_btn" class="btn btn-primary">Checkout</button>
+</div>
 
 <form id="reg_form">
-    <h1 id="title">Person 1</h1>
     <div class="form-group">
       <label for="f_name">First name:</label>
-      <input type="Name" class="form-control" id="f_name_field" placeholder="Enter First Name">
+      <input type="Name" class="form-control" id="f_name_field" placeholder="Enter First Name" required>
     </div>
     <div class="form-group">
         <label for="m_name">Middle name:</label>
-        <input type="Name" class="form-control" id="m_name_field" placeholder="Enter Middle Name">
+        <input type="Name" class="form-control" id="m_name_field" placeholder="Enter Middle Name" required>
     </div>
     <div class="form-group">
         <label for="l_name">Last name:</label>
-        <input type="Name" class="form-control" id="l_name_field" placeholder="Enter Last Name">
+        <input type="Name" class="form-control" id="l_name_field" placeholder="Enter Last Name" required>
     </div>
     <div class="form-group">
         <label for="EGN">EGN/SSN:</label>
-        <input type="Name" class="form-control" id="egn_field" placeholder="Enter EGN/SSN" maxlength="12">
+        <input type="Name" class="form-control" id="egn_field" placeholder="Enter EGN/SSN" maxlength="12" required>
         <small id="egnHelp" class="form-text text-muted">Unique personal identifier between 9 and 12 characters</small>
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1">Email address</label>
-        <input type="email" class="form-control" id="email_address_field" aria-describedby="emailHelp" placeholder="Enter Email Address">
+        <input type="email" class="form-control" id="email_address_field" aria-describedby="emailHelp" placeholder="Enter Email Address" required>
         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
     <div class="form-group">
         <label for="EGN">Phone Number:</label>
-        <input type="text" class="form-control" id="phone_number_field" placeholder="Enter Phone Number without country code" maxlength="12">
+        <input type="text" class="form-control" id="phone_number_field" placeholder="Enter Phone Number without country code" maxlength="12" required>
     </div>
     <div class="form-group">
         <label for="nationality">Nationality</label>
-        <input type="text" class="form-control" id="nationality_field" placeholder="Enter 2-letter country code" maxlength="2">
+        <input type="text" class="form-control" id="nationality_field" placeholder="Enter 2-letter country code" maxlength="2" required>
         <small id="emailHelp" class="form-text text-muted">Use Alpha-2 country codes, as defined here: <a href="https://www.iban.com/country-codes">https://www.iban.com/country-codes</a> </small>
     </div>
     <div class="form-group">
         <label for="ticket_type">Ticket Type:</label><br>
-        <select id="ticket_type_field" Name="Ticket Type" Size="2">
-            <option value="normal"> Normal </option>  
+        <select id="ticket_type_field" Name="Ticket Type" Size="2" reqired>
+            <option value="normal" default> Normal </option>  
             <option value="business"> Business </option> 
         </select>
     </div>
     <div class="form-group">
         <label for="flight_id">Flight ID</label>
-        <input type="number" class="form-control" id="flight_id_field" maxlength="12" placeholder="{{data.pk}}" disabled="true"><br>
+        <input type="number" class="form-control" id="flight_id_field" maxlength="12" placeholder="{{data.pk}}" disabled="true" required><br>
     </div>
         <button type="submit" class="btn btn-primary" id="submit_button">Submit</button>
     </form>
