@@ -4,8 +4,8 @@ class User(models.Model):
     username = models.CharField(max_length=20)
     password = models.CharField(max_length=32)
     email = models.EmailField()
-    fname = models.CharField(max_length=20)
-    lname = models.CharField(max_length=20)
+    f_name = models.CharField(max_length=20)
+    l_name = models.CharField(max_length=20)
     EGN = models.CharField(max_length=12)
     address = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=12)
@@ -32,9 +32,9 @@ class Flight(models.Model):
         return f"{self.pk} - {self.from_location} -> {self.to_location} - {self.plane_id}"
     
 class Reservation(models.Model):
-    fname = models.CharField(max_length=20)
-    mname = models.CharField(max_length=20)
-    lname = models.CharField(max_length=20)
+    f_name = models.CharField(max_length=20)
+    m_name = models.CharField(max_length=20)
+    l_name = models.CharField(max_length=20)
     EGN = models.CharField(max_length=12)
     email = models.EmailField()
     phone_number = models.CharField(max_length=12)
