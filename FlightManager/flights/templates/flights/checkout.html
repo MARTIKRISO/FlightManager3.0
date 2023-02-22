@@ -37,11 +37,17 @@ Checkout
         $("#t_body").append(pay_button_row);
         
         $("#pay_btn").on('click', function (event){
-            //https://www.google.com/search?client=firefox-b-d&q=jquery+ajax+send+csrf
-            $.post(`{% url 'flight:reserve' %}`, data={objects: order}, function() {})
-            .done(function() {
-                alert("Success")
-            })
+            console.log(Cookies.get('csrftoken'));
+            $.ajax({
+                type: "POST",
+                url: "{% url 'flight:reserve' %}",
+                data: {order: JSON.stringify(order)},
+                headers: {"X-CSRFToken": Cookies.get('csrftoken')},
+                success: function(){
+                    alert("Payment Successful!\nRedirecting!")
+                },
+                dataType: "text"
+              });
         });
     });
 </script>

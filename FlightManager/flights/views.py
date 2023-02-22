@@ -34,5 +34,25 @@ def flightdata(request):
     return HttpResponse(serializers.serialize("json", [flight, ]))
 
 def reserve(request):
-    print(request.POST.get())
+   
+    data = json.loads(request.POST.get("order"))
+
+    flight = get_object_or_404(models.Flight, pk=data[0].get("flight"))
+
+    for item in data:        
+        res_object = models.Reservation(
+            f_name= item.get("f_name"),
+            m_name= item.get("m_name"),
+            l_name= item.get("l_name"),
+            EGN= item.get("EGN"),
+            email= item.get("email"),
+            phone_number= item.get("phone_number"),
+            nationality= item.get("nationality"),
+            ticket_type= item.get("ticket_type"),
+            flight= flight,
+        )
+        print(res_object)
+        res_object.save()
     return HttpResponse(200)
+
+#TODO: Normal staff view using the login
