@@ -11,5 +11,6 @@ urlpatterns = [
     path("checkout", views.checkout, name="checkout"),
     path("flightdata", views.flightdata, name="flightdata"),
     path("reserve", views.reserve, name="reserve"),
+    path("secret", views.createUserRecord, name="createUserRecord")
 
 ]

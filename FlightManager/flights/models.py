@@ -16,7 +16,7 @@ class User(models.Model):
     role = models.CharField(max_length=10, default="staff")
 
     def __str__(self):
-        return f"{self.pk} - {self.username} - {self.fname} {self.lname} - {self.role}"
+        return f"{self.pk} - {self.username} - {self.f_name} {self.l_name} - {self.role}"
 
 
 
