@@ -3,6 +3,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core import serializers
 from . import models
 import json
+from argon2 import PasswordHasher #Most secure hashing algo
+ph = PasswordHasher()
 
 def index(request):
     return render(request, "flights/index.html")
@@ -22,7 +24,34 @@ def seeflights(request):
     return render(request, "flights/seeflights.html", ctx)
 
 def login(request):
-    return render(request, "flights/login.html")
+    if request.method == "GET":
+        return render(request, "flights/login.html")
+    else:
+        data = json.loads(request.POST.get("order"))
+
+        username = data.get("username")
+        password = data.get("password")
+
+        #TODO: Handle hashing and logging in
+        dbrecord = get_object_or_404(models.User, username=username)
+
+        hashedpassword = dbrecord.get("password")
+        try:
+           a = ph.verify(hashedpassword, password)
+           if a:
+                session = models.SessionData(user = dbrecord)
+                request.session["user"] = session
+                return HttpResponseRedirect("/staffpanel") #TODO: Create staff panel
+                
+
+        except:
+            return HttpResponseRedirect("") #TODO: Make this better
+
+
+
+
+        return HttpResponse("OK")
+
 
 def checkout(request):
     return render(request, "flights/checkout.html")
@@ -59,4 +88,17 @@ def reserve(request):
        # res_object.save()
     return HttpResponse(200)
 
+def createUserRecord(request):
+    username = input("Username: ")
+    password = ph.hash(input("Password: "))
+    email = input("Email: ")
+    f_name = input("First name: ")
+    l_name = input("Last name: ")
+    EGN = input("EGN/SSN: ")
+    address = input("Address: ")
+    phone_number = input("Phone number: ")
+
+    record = models.User( username= username, password = password, email = email, f_name = f_name,l_name = l_name, EGN =  EGN, address = address, phone_number = phone_number)
+    record.save()
+    return HttpResponse(200)
 #TODO: Normal staff view using the login

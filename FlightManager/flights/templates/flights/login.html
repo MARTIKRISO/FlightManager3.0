@@ -3,10 +3,53 @@
 {% block title %}
 Log in
 {% endblock title %}
-
 {% block content %}
-<h1>Log in here</h1>
+{% block scripts %}
+<script>
+  $(document).ready(function(event){
+    $.ajaxSetup({async: false});
+    $("#submit_button").on('click', function (){
+      data = {
+        "username": $("#username").val(),
+        "password": $("#password").val(),
+      }
 
+      $.ajax({
+        type: "POST",
+        url: "{% url 'flight:login' %}",
+        data: {order: JSON.stringify(data)},
+        headers: {"X-CSRFToken": Cookies.get('csrftoken')},
+        success: function(){
+            alert("Login Successful!\nRedirecting!");
+            window.location.replace("{% url 'flight:index' %}"); 
+        },
+        dataType: "text"
+      });
+    });
+    
+});
+</script>
+{% endblock scripts %}
+
+
+
+<h1>Staff Login</h1>
+
+<form id="reg_form">
+    <div class="form-group">
+      <label for="username">Username:</label>
+      <input type="Name" class="form-control" id="username" placeholder="Enter Username" required>
+    </div>
+    <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" class="form-control" id="password" placeholder="Enter Password" required>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary" id="submit_button">Submit</button>
+</form>
 
 {% include 'footer.html' %}
 {% endblock content %}
+<!--
+  {"X-CSRFToken": Cookies.get('csrftoken')}
+-->
