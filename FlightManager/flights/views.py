@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_list_or_404, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.core import serializers
 from . import models
 import json
@@ -16,7 +16,6 @@ def book(request, pk):
 
 def seeflights(request):
     data = get_list_or_404(models.Flight)
-    print(data)
     ctx = {
         "data": data
     }
@@ -34,8 +33,13 @@ def flightdata(request):
     return HttpResponse(serializers.serialize("json", [flight, ]))
 
 def reserve(request):
-   
-    data = json.loads(request.POST.get("order"))
+    order = str(request.POST.get('order'))
+    print("Order: " + order)
+    try:
+        data = json.loads(order)
+    except json.decoder.JSONDecodeError as e:
+        return HttpResponse(200)
+
 
     flight = get_object_or_404(models.Flight, pk=data[0].get("flight"))
 
@@ -51,8 +55,8 @@ def reserve(request):
             ticket_type= item.get("ticket_type"),
             flight= flight,
         )
-        print(res_object)
-        res_object.save()
+        #print(res_object)
+       # res_object.save()
     return HttpResponse(200)
 
 #TODO: Normal staff view using the login

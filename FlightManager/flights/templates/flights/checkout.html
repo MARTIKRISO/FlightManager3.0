@@ -19,8 +19,16 @@ Checkout
         let flight_id = order[0].flight;
         
         $.get(`{% url 'flight:flightdata' %}?pk=${flight_id}`, function(data){
-            let parsedData = JSON.parse(data);
-            flight_data = parsedData[0].fields;
+            
+        });
+        $.ajax({
+            type: "GET",
+            url: `{% url 'flight:flightdata' %}?pk=${flight_id}`,
+            success: function(data){
+                let parsedData = JSON.parse(data);
+                flight_data = parsedData[0].fields;
+            },
+            dataType: "text"
         });
         console.log(flight_data);
         
@@ -36,7 +44,8 @@ Checkout
         let pay_button_row = `<tr><td colspan="8" align="right"><button id="pay_btn" class="btn btn-primary pull-right" style="padding-left:2em; padding-right:2em;">Pay</button></td></tr>`;
         $("#t_body").append(pay_button_row);
         
-        $("#pay_btn").on('click', function (event){
+        $("#pay_btn").one('click', function (event){
+            console.log("Button Pressed")
             console.log(Cookies.get('csrftoken'));
             $.ajax({
                 type: "POST",
@@ -47,7 +56,9 @@ Checkout
                     alert("Payment Successful!\nRedirecting!")
                 },
                 dataType: "text"
-              });
+            });
+            event.stopImmediatePropagation();
+            window.location.replace("{% url 'flight:index' %}");
         });
     });
 </script>

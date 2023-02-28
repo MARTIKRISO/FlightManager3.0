@@ -3,24 +3,29 @@
 {% block title %}
 See flights
 {% endblock title %}
-
 {% block content %}
-<table id="sortTable" class="display table table-striped" style="width:100%">
+{% block scripts %}
+<script>
+</script>
+{% endblock scripts %}
+
+
+<table id="sortTable" class="display table table table-condensed table-hover table-striped" style="width:100%; overflow-y: auto;">
     <thead>
         <tr>
-            <th>Flight ID</th>
-            <th>From</th>
-            <th>To</th>
-            <th>Takeoff Time</th>
-            <th>Landing Time</th>
-            <th>Plane Type</th>
-            <th>Plane ID</th>
-            <th>Pilot Name</th>
-            <th>Normal Ticket Count</th>
-            <th>Normal Ticket Price</th>
-            <th>Business Ticket Count</th>
-            <th>Business Ticket Price</th>
-            <th>Click to Book</th>
+            <th data-column-id="id" data-identifier="true" >Flight ID</th>
+            <th data-column-id="from">From</th>
+            <th data-column-id="to">To</th>
+            <th data-column-id="takeoff_date">Takeoff Date</th>
+            <th data-column-id="landing_date">Landing Date</th>
+            <th data-column-id="plane_type">Plane Type</th>
+            <th data-column-id="plane_id">Plane ID</th>
+            <th data-column-id="pilot_name">Pilot Name</th>
+            <th data-column-id="normal_ticket_count">Normal Ticket Count</th>
+            <th data-column-id="normal_ticket_price">Normal Ticket Price</th>
+            <th data-column-id="business_ticket_count">Business Ticket Count</th>
+            <th data-column-id="business_ticket_price">Business Ticket Price</th>
+            <th>Book</th>
         </tr>
     </thead>
     <tbody>
