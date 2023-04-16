@@ -3,9 +3,115 @@
 {% block title %}
 Index page
 {% endblock title %}
+{% load static %}
 
 {% block content %}
-<h1>Welcome</h1>
+<section class="hero">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8" style="background-image: url('{% static 'img/plane.jpg' %}'); background-position: center center;">
+          <h1>Find Your Perfect Flight</h1>
+          <form>
+            <div class="form-row">
+              <div class="col-md-6 form-group">
+                <label for="from">From</label>
+                <input type="text" class="form-control" id="from" placeholder="Departure Airport">
+              </div>
+              <div class="col-md-6 form-group">
+                <label for="to">To</label>
+                <input type="text" class="form-control" id="to" placeholder="Destination Airport">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-6 form-group">
+                <label for="depart">Departure Date</label>
+                <input type="date" class="form-control" id="depart">
+              </div>
+              <div class="col-md-6 form-group">
+                <label for="return">Return Date</label>
+                <input type="date" class="form-control" id="return">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Search Flights</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</header>
+<main>
+  <section class="services">
+    <div class="container">
+      <h2>Our Services</h2>
+      <div class="row">
+        <div class="col-md-4" >
+          <div class="card" style="background-image: url('{% static 'img\Baggage_296x185.jpg' %}'); background-position: center center;">
+            
+            <div class="card-body">
+              <h5 class="card-title" >Baggage</h5>
+              <p class="card-text" >We offer a variety of baggage options to suit your needs, including carry-on, checked, and oversized baggage.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card" style="background-image: url('{% static 'img\Food_1_296x185.jpg' %}'); background-position: center center;">
+             
+            <div class="card-body">
+              <h5 class="card-title">Food</h5>
+              <p class="card-text">We offer a range of food and drink options on board, including snacks, meals, and beverages.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card" style="background-image: url('{% static 'img\Entertainment_296x185.jpg' %}'); background-position: center center;">
+            
+            <div class="card-body">
+              <h5 class="card-title">Entertainment</h5>
+              <p class="card-text">We offer a variety of entertainment options on board, including movies, TV shows, and music.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="destinations">
+    <div class="container">
+      <h2>Popular Destinations</h2>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card" style="background-image: url('{% static 'img\Paris_296x185.jpg' %}'); background-position: center center;">
+            
+            <div class="card-body">
+              <h5 class="card-title">Paris</h5>
+              <p class="card-text">Experience the City of Lights with our flights to Paris. Visit the Eiffel Tower, the Louvre Museum, and more.</p>
+              <a href="#" class="btn btn-primary">Book Now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card" style="background-image: url('{% static 'img\New-York_296x185.jpg' %}'); background-position: center center;">
+            
+            <div class="card-body">
+              <h5 class="card-title">New York</h5>
+              <p class="card-text">Fly to the Big Apple and explore all that New York City has to offer, from Central Park to Times Square.</p>
+              <a href="#" class="btn btn-primary">Book Now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card" style="background-image: url('{% static 'img\Tokyo_296x185.jpg' %}'); background-position: center center;">
+            
+            <div class="card-body">
+              <h5 class="card-title">Tokyo</h5>
+              <p class="card-text">Discover the sights and sounds of Tokyo, from the neon-lit streets of Shinjuku to the traditional temples of Asakusa.</p>
+              <a href="#" class="btn btn-primary">Book Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
 
 
 {% include 'footer.html' %}
