@@ -5,11 +5,25 @@ Index page
 {% endblock title %}
 {% load static %}
 
+
 {% block content %}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+<style>
+  .hero{
+    font-family: 'Comic Neue', cursive;
+  }
+  .card{
+    color: white;
+  }
+</style>
+
 <section class="hero">
     <div class="container">
       <div class="row">
-        <div class="col-md-8" style="background-image: url('{% static 'img/plane.jpg' %}'); background-position: center center;">
+        <div class="col-md-8" style="background-image: url('{% static 'img/plane.jpg' %}'); background-position: center center;width:1300px;height:350px">
           <h1>Find Your Perfect Flight</h1>
           <form>
             <div class="form-row">
@@ -45,7 +59,7 @@ Index page
       <h2>Our Services</h2>
       <div class="row">
         <div class="col-md-4" >
-          <div class="card" style="background-image: url('{% static 'img\Baggage_296x185.jpg' %}'); background-position: center center;">
+          <div class="card" style="background-image: url('{% static 'img\Baggage_296x185.jpg' %}'); background-position: center center;width:400px;height:200px">
             
             <div class="card-body">
               <h5 class="card-title" >Baggage</h5>
@@ -54,7 +68,7 @@ Index page
           </div>
         </div>
         <div class="col-md-4">
-          <div class="card" style="background-image: url('{% static 'img\Food_1_296x185.jpg' %}'); background-position: center center;">
+          <div class="card" style="background-image: url('{% static 'img\Food_1_296x185.jpg' %}'); background-position: center center;width:400px;height:200px">
              
             <div class="card-body">
               <h5 class="card-title">Food</h5>
@@ -63,7 +77,7 @@ Index page
           </div>
         </div>
         <div class="col-md-4">
-          <div class="card" style="background-image: url('{% static 'img\Entertainment_296x185.jpg' %}'); background-position: center center;">
+          <div class="card" style="background-image: url('{% static 'img\Entertainment_296x185.jpg' %}'); background-position: center center;width:400px;height:200px">
             
             <div class="card-body">
               <h5 class="card-title">Entertainment</h5>
@@ -79,7 +93,7 @@ Index page
       <h2>Popular Destinations</h2>
       <div class="row">
         <div class="col-md-4">
-          <div class="card" style="background-image: url('{% static 'img\Paris_296x185.jpg' %}'); background-position: center center;">
+          <div class="card" style="background-image: url('{% static 'img\Paris_296x185.jpg' %}'); background-position: center center;width:400px;height:200px">
             
             <div class="card-body">
               <h5 class="card-title">Paris</h5>
@@ -89,7 +103,7 @@ Index page
           </div>
         </div>
         <div class="col-md-4">
-          <div class="card" style="background-image: url('{% static 'img\New-York_296x185.jpg' %}'); background-position: center center;">
+          <div class="card" style="background-image: url('{% static 'img\New-York_296x185.jpg' %}'); background-position: center center;width:400px;height:200px">
             
             <div class="card-body">
               <h5 class="card-title">New York</h5>
@@ -99,7 +113,7 @@ Index page
           </div>
         </div>
         <div class="col-md-4">
-          <div class="card" style="background-image: url('{% static 'img\Tokyo_296x185.jpg' %}'); background-position: center center;">
+          <div class="card" style="background-image: url('{% static 'img\Tokyo_296x185.jpg' %}'); background-position: center center; width:400px;height:200px">
             
             <div class="card-body">
               <h5 class="card-title">Tokyo</h5>

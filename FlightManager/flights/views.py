@@ -27,30 +27,33 @@ def login(request):
     if request.method == "GET":
         return render(request, "flights/login.html")
     else:
-        data = json.loads(request.POST.get("order"))
+        return HttpResponseRedirect("/admin")
+        #data = json.loads(request.POST.get("order"))
 
-        username = data.get("username")
-        password = data.get("password")
+        # username = request.POST["username"]
+        # password = request.POST["password"]
 
-        #TODO: Handle hashing and logging in
-        dbrecord = get_object_or_404(models.User, username=username)
+        # #TODO: Handle hashing and logging in
+        # dbrecord = get_object_or_404(models.User, username=username)
 
-        hashedpassword = dbrecord.get("password")
-        try:
-           a = ph.verify(hashedpassword, password)
-           if a:
-                session = models.SessionData(user = dbrecord)
-                request.session["user"] = session
-                return HttpResponseRedirect("/staffpanel") #TODO: Create staff panel
+        # hashedpassword = getattr(dbrecord, "password")
+        # try:
+        #    a = ph.verify(hashedpassword, password)
+        #    if a:
+        #         print("Pass correct!")
+        #         session = models.SessionData(user = dbrecord)
+        #         request.session["user"] = session
+        #         return HttpResponseRedirect("/admin") #TODO: Create staff panel
                 
 
-        except:
-            return HttpResponseRedirect("") #TODO: Make this better
+        # except:
+        #    # print("Pass wrong! Expected - got: " + str(hashedpassword), str(ph.hash(password)))
+        #     return HttpResponseRedirect("/admin") #TODO: Make this better
 
 
 
 
-        return HttpResponse("OK")
+        # return HttpResponse("OK")
 
 
 def checkout(request):

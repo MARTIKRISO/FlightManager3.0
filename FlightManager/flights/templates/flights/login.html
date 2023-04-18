@@ -21,7 +21,7 @@ Log in
         headers: {"X-CSRFToken": Cookies.get('csrftoken')},
         success: function(){
             alert("Login Successful!\nRedirecting!");
-            window.location.replace("{% url 'flight:index' %}"); 
+            window.location.replace("/admin"); 
         },
         dataType: "text"
       });
